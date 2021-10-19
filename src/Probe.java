@@ -6,9 +6,14 @@ public class Probe {
 	private final Field field;
 	
 	public Probe (Field field, Position position, Direction direction) {
-		this.position = position;
-		this.direction = direction;
-		this.field = field;
+		if (field.isPositionAvailable(position)) {
+			this.position = position;
+			this.direction = direction;
+			this.field = field;
+		}
+		else {
+			throw new IllegalArgumentException(">>> Erro: espaço já ocupado ou fora dos limites do campo.");
+		}
 	}
 	
 	public Direction getDirection() {
@@ -69,19 +74,19 @@ public class Probe {
 	}
 	
 	public void processInstructions(String instructionsList) {
-	    for (int i = 0; i < instructionsList.length(); i++) {
-	    	char instruction = instructionsList.charAt(i);
-	    	doInstruction(instruction);
-	    }
+		for (String instruction : instructionsList.split("")) {
+			doInstruction(instruction.toUpperCase().charAt(0));
+		}
 	}
 	
 	public void doInstruction(char instruction) {
-		Optional<Movement> optMove = Movement.getMovement(instruction);
-	    Movement movement = optMove.orElseThrow(IllegalArgumentException::new);
+		Optional<Movement> optMovement = Movement.getMovement(instruction);
+	    Movement movement = optMovement.orElseThrow(() -> new IllegalArgumentException(">>> Erro: instrução inválida."));
 	    movement.move(this);
 	}
 	
-	public String finalPositionToString() {
+	@Override
+	public String toString() {
 		return String.valueOf(this.position.getX()) + " " + String.valueOf(this.position.getY() + " " + this.direction.getDirectionCode());
 	}
 

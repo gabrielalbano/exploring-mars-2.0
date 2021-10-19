@@ -27,5 +27,11 @@ public class Position {
 
         return true;
     }
+	
+	public int hashCode() {
+        int result = x;
+        result = 37 * result + y;
+        return result;
+    }
 
 }

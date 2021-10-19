@@ -7,9 +7,12 @@ public class Field {
 	private Map<Position, Probe> probes;
 	
 	public Field (int length, int width) {
+		if (length <= 0 || width <= 0) {
+			throw new IllegalArgumentException(">>> Os valores das dimensões precisam ser maiores que zero.");
+		}
 		this.length = length;
 		this.width = width;
-		this.probes = new HashMap<Position, Probe>();
+		this.probes = new HashMap<>();
 	}
 	
 	public void landOn(Position newPosition, Probe probe) {
@@ -21,10 +24,8 @@ public class Field {
 	}
 	
 	public boolean isPositionOccupied(Position position) {
-		for (var key : this.probes.keySet()) {
-			if (position.equals(key)) {
-				return true;
-			}
+		if (probes.containsKey(position)) {
+			return true;
 		}
 		return false;
 	}

@@ -28,9 +28,10 @@ public enum Movement {
 	
 	public static Optional<Movement> getMovement(char code) {
 	    for (Movement movement : Movement.values()) {
-	    	if (movement.code == code)
+	    	if (movement.code == code) {
 	    		return Optional.of(movement);
 	    	}
+	    }
 	    return Optional.empty();
 	}
 	

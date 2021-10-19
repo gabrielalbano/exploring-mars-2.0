@@ -34,21 +34,16 @@ public class Main {
 		        Direction direction = optDir.orElseThrow(IllegalArgumentException::new);
 		        Position position = new Position(coordX, coordY);
 
-	        // insere sonda no campo se o espaço não estiver ocupado ou estiver fora dos
-	        // limites
-		        if (field.isPositionAvailable(position)) {
-		        	System.out.println("Digite a sequência de instruções:");
-		        	Probe probe = new Probe(field, position, direction);
-		        	String instructions = reader.nextLine();
+		        // insere sonda no campo se o espaço não estiver ocupado ou estiver fora dos limites
+		        System.out.println("Digite a sequência de instruções:");
+		        Probe probe = new Probe(field, position, direction);
+		        String instructions = reader.nextLine();
 	
-		        	// realização das instruções
-		        	probe.processInstructions(instructions);
+		        // realização das instruções
+		        probe.processInstructions(instructions);
 	
-		        	// Imprime a posição e direção finais da sonda no terminal
-		        	System.out.println(probe.finalPositionToString());
-		        } else {
-		        	System.out.println("Erro: espaço já ocupado ou fora dos limites do campo.");
-		        }        		
+		        // Imprime a posição e direção finais da sonda no terminal
+		        System.out.println(probe.toString());     		
         	} while(!input.equals("exit"));
         } catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
